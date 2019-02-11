@@ -1,0 +1,8 @@
+id,name,bgcolor,fgcolor,defaulticon,description
+0,Void,white,,,All-encompassing darkness. A realm of no return.
+1,Grassland,green,white,high-grass,"A lush, living grassland."
+2,Forest,dkgreen,white,,
+3,Desert,beige,brown,,
+4,Mountains,grey,white,,
+5,Ocean,dkblue,white,,
+6,Savanna,ltgreen,white,,

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+.text-muted {
+    opacity: 0.7;
+}
+
+table.map {
+    font-size: 14px;
+}
+
+table.map .tile {
+    width: 3.6em;
+    height: 3.6em;
+    position: relative;
+}
+
+table.map .tile-layer {
+    border-radius: 0.5em;
+    padding: 0.3em;
+
+    position: absolute;
+}
+
+table.map .tile-layer>div {
+    width: 3em;
+    height: 3em;
+}
+    </style>
+</head>
+<body>
+<header>
+    <a href="{{ url_for('game.reload_data') }}">reload_data</a>
+    &bull;
+    <a href="{{ url_for('game.restart') }}">restart</a>
+</header>
+<img src="{{ url_for('static', filename='icons/rolling-dices.svg') }}" width="70" style="float:left">
+<h2> Hello {{ state.character.name }}. It is turn {{ state.turn }}.</h2>
+<p>Your find yourself in <i>{{ map.name }}</i>. What shall you do?</p>
+<table class="map">
+    {% for y in range(map.biomes.shape[1]) %}
+    <tr>
+        {% for x in range(map.biomes.shape[0]) %}
+        <td>
+            {% set biome = biomes[map.biomes[y, x]] %}
+            {% set fgcolor_name = biome['fgcolor'] %}
+            {% set tile = map.terrain[y, x] %}
+            {% set tiletype = tiletypes[tile] %}
+            <div class="tile" title="{{tiletype['name']}}">
+                <div class="tile-layer" style=" background-color: {{bgpalette[biome['bgcolor']]}}">
+                    {% if tiletype['icon'] != '' %}
+                    <div style="background-image: url('{{ url_for('static', filename='icons/tiles/' ~ tile ~ '.' ~ biome['fgcolor'] ~ '.svg') }}')">
+                    {% else %}
+                    <div>
+                    {% endif %}
+                    </div>
+                </div>
+                {% if (x, y) == state.character.pos %}
+                <div class="tile-layer" style="background-color: rgba(0,0,0,0.5)">
+                    <div style="background-image: url('{{ url_for('static', filename='icons/meeple.svg') }}')"></div>
+                </div>
+                {% endif %}
+            </div>
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    {% for turn, message in state.messages %}
+    <p><span class="text-muted">(on turn {{turn}})</span>&ensp;{{message}}</p>
+    {% endfor %}
+</div>
+<p>Your items:</p>
+<ul>
+    {% for item in state.character.items %}
+    <li>
+        <div style="background-color: {{ bgpalette[item.icon[1]] }}; padding: 10px; border-radius: 10px; display: inline-block; margin: 5px">
+        <img src="{{ url_for('static', filename='icons/items/' + item.icon[0] + '.svg') }}" width="50">
+        </div>
+        {{item.name}}
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

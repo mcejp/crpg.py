@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2><img src="{{ url_for('static', filename='icons/rolling-dices.svg') }}" width="50"> Hello adventurer.</h2>
+<form method="post">
+    <div>
+        <label>Name: <input type="text" name="charactername" autofocus></label>
+    </div>
+    <button type="submit">Create character</button>
+</form>
+</body>
+</html>
