@@ -4,7 +4,7 @@
   <tile id="0" type="Empty">
     <image width="32" height="32" source="/home/minexew/dev/pydungeons/game/studio_data/tiles/0.png"/>
   </tile>
-  <tile id="1" type="xxGrassland">
+  <tile id="1" type="Forest">
     <image width="32" height="32" source="/home/minexew/dev/pydungeons/game/studio_data/tiles/1.png"/>
   </tile>
   <tile id="2" type="Mountains">
@@ -19,7 +19,7 @@
   <tile id="5" type="Lighthouse">
     <image width="32" height="32" source="/home/minexew/dev/pydungeons/game/studio_data/tiles/5.png"/>
   </tile>
-  <tile id="6" type="xxPuddle">
+  <tile id="6" type="Well">
     <image width="32" height="32" source="/home/minexew/dev/pydungeons/game/studio_data/tiles/6.png"/>
   </tile>
   <tile id="7" type="Field">

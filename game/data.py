@@ -26,23 +26,25 @@ class Map:
 
 basepath = Path(__file__).parent / "data"
 
-bgpalette = dict(
-    beige='#dad992',
+# https://lospec.com/palette-list/fleja-master-palette
+palette = dict(
+    beige='#ffe596',
     black='#000',
-    blue='#66f',
-    brown='#884400',
-    cyan='#49e',
-    dkblue='#223866',
-    dkgreen='#3b542b',
-    green='#78a758',
-    gold='#665533',
-    grey='#444444',
-    ltgreen='#aaee88',
-    pink='#dd99dd',
+    blue='#4c93ad',
+    brown='#8a503e',
+    cyan='#b8fdff',
+    dkblue='#233663',
+    dkgreen='#309c63',
+    green='#51c43f',
+    gold='#fcf960',
+    grey='#68717a',
+    ltgreen='#b4d645',
+    pink='#852d66',
     white='#fff'
 )
 
-fgpalette = bgpalette
+bgpalette = palette
+fgpalette = palette
 
 def csv_as_dict(f, expected_columns, id_column, id_mapper):
     reader = csv.reader(f)

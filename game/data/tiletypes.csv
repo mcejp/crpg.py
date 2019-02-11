@@ -1,10 +1,10 @@
 id,name,icon,bgcolor,fgcolor,cost
 0,Empty,,white,black,999
-1,xxGrassland,high-grass,green,white,20
+1,Forest,forest,green,white,20
 2,Mountains,peaks,grey,white,999
 3,Pier,wooden-pier,green,white,999
 4,Gravel Road,path-tile,beige,grey,13
 5,Lighthouse,lighthouse,beige,,20
-6,xxPuddle,,cyan,,80
+6,Well,well,cyan,,80
 7,Field,wheat,beige,grey,30
 8,Meadow,flowers,green,white,20
