@@ -1,4 +1,7 @@
 /.idea/
+/game/static/icons/tiles/
+/game/studio_data/biomes/
+/game/studio_data/tiles/
 /virtualenv/
 
 __pycache__
