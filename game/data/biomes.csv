@@ -1,9 +1,9 @@
 id,name,bgcolor,fgcolor,defaulticon,description
 0,Void,white,,,All-encompassing darkness. A realm of no return.
-1,Grassland,green,white,high-grass,"A lush, living grassland."
-2,Forest,dkgreen,white,,"Dark, deep and mysterious."
+1,Grassland,grass_bg,grass_fg,high-grass,"A lush, living grassland."
+2,Forest,forest_bg,forest_fg,,"Dark, deep and mysterious."
 3,Desert,beige,brown,,"A vast, scorching hot world of sand.
 "
 4,Mountains,ltgrey,dkgrey,,Some of the peaks must surely reach the roof of the sky.
-5,Ocean,dkblue,white,,Its wild wave have claimed many a sailor's life.
-6,Savanna,ltgreen,white,,Plentiful low vegetation and uncommon species are a signature of this biome.
+5,Ocean,ocean_bg,ocean_fg,,Its wild wave have claimed many a sailor's life.
+6,Savanna,savanna_bg,savanna_fg,,Plentiful low vegetation and uncommon species are a signature of this biome.

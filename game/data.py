@@ -26,6 +26,11 @@ class Map:
 
 basepath = Path(__file__).parent / "data"
 
+def hls_hex(h, l, s):
+    import colorsys
+    r, g, b = colorsys.hls_to_rgb(h, l, s)
+    return f'#{int(r*255):02x}{int(g*255):02x}{int(b*255):02x}'
+
 # https://lospec.com/palette-list/fleja-master-palette
 palette = dict(
     beige='#ffe596',
@@ -35,14 +40,26 @@ palette = dict(
     cyan='#b8fdff',
     dkblue='#233663',
     dkgreen='#309c63',
-    dkgrey='#414859',
+    dkgrey=hls_hex(0.62, 0.3, 0.15), #'#414859',
     green='#51c43f',
     gold='#fcf960',
     grey='#68717a',
-    ltgrey='#90a1a8',
+    ltgrey=hls_hex(0.55, 0.6, 0.12), #'#90a1a8',
     ltgreen='#b4d645',
     pink='#852d66',
-    white='#fff'
+    white='#fff',
+
+    grass_bg=hls_hex(0.28, 0.58, 0.38),
+    grass_fg=hls_hex(0.33, 0.2, 0.25),
+
+    forest_bg=hls_hex(0.37, 0.5, 0.3),
+    forest_fg=hls_hex(0.40, 0.2, 0.2),
+
+    savanna_bg=hls_hex(0.22, 0.7, 0.6),
+    savanna_fg=hls_hex(0.15, 0.3, 0.6),
+
+    ocean_bg=hls_hex(0.58, 0.45, 0.55),
+    ocean_fg=hls_hex(0.53, 0.1, 0.4),
 )
 
 bgpalette = palette
