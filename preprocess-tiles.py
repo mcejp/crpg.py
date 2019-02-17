@@ -60,6 +60,8 @@ for id, tiletype in data.tiletypes.items():
     tiletype_list.append((tiletype, png32_file))
 
 ##### generate all needed hex backgrounds
+print('make hexes')
+
 with open(game.package_base_path / 'static' / 'icons' / 'hex.svg', 'rt') as input:
     svg = input.read()
 
@@ -80,6 +82,7 @@ for biome_id, biome in data.biomes.items():
 generate_hex_by_colorname('black')
 
 #####
+print('make biomes.tsx')
 
 with open(studio_data_path / 'biomes.tsx', 'wt') as tsx:
     tsx.write(f'''\
@@ -108,6 +111,8 @@ with open(studio_data_path / 'biomes.tsx', 'wt') as tsx:
     tsx.write('''\
 </tileset>
 ''')
+
+print('make tileset.tsx')
 
 with open(studio_data_path / 'tileset.tsx', 'wt') as tsx:
     tsx.write(f'''\
