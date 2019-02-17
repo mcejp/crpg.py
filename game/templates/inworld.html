@@ -15,32 +15,46 @@
     opacity: 0.7;
 }
 
-table.map {
-    font-size: 14px;
-}
+.gamecanvas {
+    width: 100vw;
+    height: 80vh;
 
-table.map .tile {
-    width: 3.6em;
-    height: 3.6em;
+    font-size: 14px;
     position: relative;
 }
 
-table.map .tile-layer {
-    /*border-bottom: 0.2em solid transparent;
-    border-right: 0.2em solid transparent;*/
-    border-radius: 0.5em;
-    padding: 0.3em;
+.tilewrapper {
+    /* this puts the edge length of the hex at 2.5em */
+    width: 4.33em;
+    height: 5em;
+    padding: 0.2em;
 
     position: absolute;
 }
 
-table.map .tile-layer:first-child {
-    /*box-shadow: 1px 1px 1px rgba(255,255,255,1);*/
+.tile {
 }
 
-table.map .tile-layer>div {
-    width: 3em;
-    height: 3em;
+.tile-layer {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+}
+
+.tile-layer-biome {
+    background-size: 100%;
+}
+
+.tile-layer-overlay {
+    background-image: url('{{ url_for('static', filename='icons/tiles/hex.black.svg') }}');
+    background-size: 100%;
+}
+
+.tile-layer-terrain {
+    background-position: 55% 45%;
+    background-repeat: no-repeat;
+    background-size: 70%;
 }
     </style>
 </head>
@@ -53,37 +67,50 @@ table.map .tile-layer>div {
 <img src="{{ url_for('static', filename='icons/rolling-dices.svg') }}" width="70" style="float:left">
 <h2> Hello {{ state.character.name }}. It is turn {{ state.turn }}.</h2>
 <p>Your find yourself in <i>{{ map.name }}</i>. What shall you do?</p>
-<table class="map">
-    {% for y in range(map.biomes.shape[1]) %}
-    <tr>
-        {% for x in range(map.biomes.shape[0]) %}
-        <td>
-            {% set biome = biomes[map.biomes[y, x]] %}
+
+<div class="gamecanvas">
+    {% for q in range(map.biomes.shape[0]) %}
+        {% for r in range(map.biomes.shape[1]) %}
+            {% if map.biomes[q, r] %}
+
+            {# Anatomy of a tile
+                Tiles (div.tilewrapper) are placed in a dense hex grid.
+                In theory, every point of the canvas should belong to some tile (excluding pixel-level inaccuracy).
+                For pointer-hit calculation, this is assumed.
+
+                Tilewrapper has a fixed size and applies inter-tile spacing via its padding.
+
+                Tile is built up of layers, e.g.
+                 - biome
+                 - terrain
+                 - actors
+             #}
+            {% set biome = biomes[map.biomes[q, r]] %}
             {% set fgcolor_name = biome['fgcolor'] %}
-            {% set tile = map.terrain[y, x] %}
+            {% set tile = map.terrain[q, r] %}
             {% set tiletype = tiletypes[tile] %}
-            <div class="tile" title="{{tiletype['name']}}">
-                {% if map.biomes[y, x] %}
-                <div class="tile-layer" style="border-color: {{bgpalette[biome['fgcolor']]}}; background-color: {{bgpalette[biome['bgcolor']]}}">
+            {% set q_ = q - (map.biomes.shape[0] / 3) %}
+            {% set xdisp = (2.5 + 0.4) * (1.732 * q_ + 1.732/2 * r) %}
+            {% set ydisp = (2.5 + 0.4) * (1.5 * r) %}
+            <div class="tilewrapper" title="{{tiletype['name']}}" style="left: {{xdisp}}em; top: {{ydisp}}em">
+                <div class="tile">
+                    <div class="tile-layer tile-layer-biome" style="background-image: url('{{ url_for('static', filename='icons/tiles/hex.' ~ biome['bgcolor'] ~ '.svg') }}')"></div>
+
                     {% if tiletype['icon'] != '' %}
-                    <div style="background-image: url('{{ url_for('static', filename='icons/tiles/' ~ tile ~ '.' ~ biome['fgcolor'] ~ '.svg') }}')">
-                    {% else %}
-                    <div>
+                    <div class="tile-layer tile-layer-terrain" style="background-image: url('{{ url_for('static', filename='icons/tiles/' ~ tile ~ '.' ~ biome['fgcolor'] ~ '.svg') }}')"></div>
                     {% endif %}
-                    </div>
+
+                    {% if (q, r) == state.character.pos %}
+                    <div class="tile-layer tile-layer-overlay"></div>
+
+                    <div class="tile-layer tile-layer-terrain" style="background-image: url('{{ url_for('static', filename='icons/meeple.svg') }}')"></div>
+                    {% endif %}
                 </div>
-                {% if (x, y) == state.character.pos %}
-                <div class="tile-layer" style="background-color: rgba(0,0,0,0.5)">
-                    <div style="background-image: url('{{ url_for('static', filename='icons/meeple.svg') }}')"></div>
-                </div>
-                {% endif %}
-                    {%endif %}
             </div>
-        </td>
+            {% endif %}
         {% endfor %}
-    </tr>
     {% endfor %}
-</table>
+</div>
 <div>
     {% for turn, message in state.messages %}
     <p><span class="text-muted">(on turn {{turn}})</span>&ensp;{{message}}</p>
