@@ -5,6 +5,12 @@
     <title>Title</title>
 
     <style>
+        body {
+            background-color: #222;
+            color: #b6cbcf;
+
+            /*background-color: #ddd;*/
+        }
 .text-muted {
     opacity: 0.7;
 }
@@ -20,10 +26,16 @@ table.map .tile {
 }
 
 table.map .tile-layer {
+    /*border-bottom: 0.2em solid transparent;
+    border-right: 0.2em solid transparent;*/
     border-radius: 0.5em;
     padding: 0.3em;
 
     position: absolute;
+}
+
+table.map .tile-layer:first-child {
+    /*box-shadow: 1px 1px 1px rgba(255,255,255,1);*/
 }
 
 table.map .tile-layer>div {
@@ -51,7 +63,8 @@ table.map .tile-layer>div {
             {% set tile = map.terrain[y, x] %}
             {% set tiletype = tiletypes[tile] %}
             <div class="tile" title="{{tiletype['name']}}">
-                <div class="tile-layer" style=" background-color: {{bgpalette[biome['bgcolor']]}}">
+                {% if map.biomes[y, x] %}
+                <div class="tile-layer" style="border-color: {{bgpalette[biome['fgcolor']]}}; background-color: {{bgpalette[biome['bgcolor']]}}">
                     {% if tiletype['icon'] != '' %}
                     <div style="background-image: url('{{ url_for('static', filename='icons/tiles/' ~ tile ~ '.' ~ biome['fgcolor'] ~ '.svg') }}')">
                     {% else %}
@@ -64,6 +77,7 @@ table.map .tile-layer>div {
                     <div style="background-image: url('{{ url_for('static', filename='icons/meeple.svg') }}')"></div>
                 </div>
                 {% endif %}
+                    {%endif %}
             </div>
         </td>
         {% endfor %}
