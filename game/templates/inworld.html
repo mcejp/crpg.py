@@ -92,7 +92,7 @@
             {% set q_ = q - (map.biomes.shape[0] / 3) %}
             {% set xdisp = (2.5 + 0.4) * (1.732 * q_ + 1.732/2 * r) %}
             {% set ydisp = (2.5 + 0.4) * (1.5 * r) %}
-            <div class="tilewrapper" title="{{tiletype['name']}}&#xa;Biome: {{biome['name']}}" style="left: {{xdisp}}em; top: {{ydisp}}em">
+            <div class="tilewrapper" title="({{q}} {{r}})&#xa;{{tiletype['name']}}&#xa;Biome: {{biome['name']}}" style="left: {{xdisp}}em; top: {{ydisp}}em">
                 <div class="tile">
                     <div class="tile-layer tile-layer-biome" style="background-image: url('{{ url_for('static', filename='icons/tiles/hex.' ~ biome['bgcolor'] ~ '.svg') }}')"></div>
 
