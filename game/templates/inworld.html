@@ -49,6 +49,7 @@
 .tile-layer-overlay {
     background-image: url('{{ url_for('static', filename='icons/tiles/hex.black.svg') }}');
     background-size: 100%;
+    opacity: 0.5;
 }
 
 .tile-layer-terrain {
@@ -95,6 +96,7 @@
             <div class="tilewrapper" title="({{q}} {{r}})&#xa;{{tiletype['name']}}&#xa;Biome: {{biome['name']}}" style="left: {{xdisp}}em; top: {{ydisp}}em">
                 <div class="tile">
                     <div class="tile-layer tile-layer-biome" style="background-image: url('{{ url_for('static', filename='icons/tiles/hex.' ~ biome['bgcolor'] ~ '.svg') }}')"></div>
+                    <div class="tile-layer tile-layer-biome" style="background-image: url('{{ url_for('static', filename='icons/hex-relief.svg') }}'); opacity: 0.1"></div>
 
                     {% if tiletype['icon'] != '' %}
                     <div class="tile-layer tile-layer-terrain" style="background-image: url('{{ url_for('static', filename='icons/tiles/' ~ tile ~ '.' ~ biome['fgcolor'] ~ '.svg') }}')"></div>
